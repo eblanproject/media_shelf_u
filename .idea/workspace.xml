@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea32f55-b266-4638-8fd8-765f2253318c" name="Changes" comment="" />
+    <list default="true" id="9ea32f55-b266-4638-8fd8-765f2253318c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth/registration/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/registration/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/layout/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Header.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,7 +28,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../fintech-monorepo" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -34,7 +38,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/maxark02/fintech-monorepo.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/eblanproject/media_shelf_u&quot;,
     &quot;accountId&quot;: &quot;186cee05-9fca-4c69-ad5b-174a7907fa28&quot;
   }
 }</component>
@@ -60,28 +64,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "/Users/a1/WebstormProjects/ms2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.Next.js: server-side.executor": "Run",
-    "settings.editor.selected.configurable": "web-ide.project.structure",
-    "settings.editor.splitter.proportion": "0.3058104",
-    "ts.external.directory.path": "/Users/a1/WebstormProjects/ms2/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;frontend&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;kronk.content.tree.expanded.paths&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/a1/WebstormProjects/ms2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;web-ide.project.structure&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.3058104&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/a1/WebstormProjects/ms2/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/(auth)/signIn" />
@@ -127,7 +133,9 @@
       <workItem from="1788758520349" duration="67000" />
       <workItem from="1788758597940" duration="20000" />
       <workItem from="1788758619155" duration="36331000" />
-      <workItem from="1788873833235" duration="10017000" />
+      <workItem from="1788873833235" duration="12514000" />
+      <workItem from="1788941009696" duration="1914000" />
+      <workItem from="1788956250338" duration="4251000" />
     </task>
     <servers />
   </component>

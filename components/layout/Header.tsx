@@ -34,7 +34,11 @@ import { useRouter } from "next/navigation";
     <div className="flex shrink-0 justify-stretch items-center gap-3 sm:gap-6">
 
         <div className="flex items-center text-sm text-yellow-200 border-r border-gray-700 px-5 hover:text-yellow-300 cursor-pointer">
-            Favorite
+
+            <Link href="/profile">
+                Favorite
+
+            </Link>
         </div>
 
         {/*sign in/ join*/}

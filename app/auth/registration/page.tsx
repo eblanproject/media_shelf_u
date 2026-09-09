@@ -12,7 +12,7 @@ export default function Page() {
 
             <div
                 onClick={() => router.push("/")}
-                className="absolute top-2 left-5 z-20 cursor-pointer"
+                className="absolute top-2 left-5 z-20 cursor-pointer font-bold"
             >
                 <MsuLogo />
             </div>
@@ -26,7 +26,7 @@ export default function Page() {
             >
                 <div className="absolute inset-0 bg-gradient-to-tr from-black via-black/65 to-yellow-300/20" />
 
-                <div className="absolute right-0 bottom-0 left-0 z-10 p-7 text-left sm:p-10 lg:p-12">
+                <div className="absolute right-0 bottom-0 z-10 p-7 text-right sm:p-10 lg:p-12">
                     <p className="text-xs font-bold uppercase tracking-[0.28em] text-yellow-200">
                         MSU Cinema
                     </p>
