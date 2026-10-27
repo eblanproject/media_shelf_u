@@ -126,3 +126,89 @@ def get_similar_movies(movie_id: int, count: int = 10):
         )
 
     return movies
+
+def get_tv_series(category: str = "popular", count: int = 10):
+    data = tmdb_get(f"/tv/{category}")
+
+    return [
+        {
+            "id": tv["id"],
+            "title": tv.get("name"),
+            "thumbnail": (
+                f"{TMDB_IMAGE_BASE}{tv['poster_path']}"
+                if tv.get("poster_path")
+                else None
+            ),
+        }
+        for tv in data.get("results", [])[:count]
+    ]
+
+
+def get_tv_series_details(tv_id: int):
+    tv = tmdb_get(
+        f"/tv/{tv_id}",
+        {"append_to_response": "credits,content_ratings"},
+    )
+
+    cast = [
+        {
+            "id": person["id"],
+            "name": person.get("name"),
+            "character": person.get("character"),
+        }
+        for person in tv.get("credits", {}).get("cast", [])[:10]
+    ]
+
+    age_rating = next(
+        (
+            item.get("rating")
+            for item in tv.get("content_ratings", {}).get("results", [])
+            if item.get("iso_3166_1") == "KR" and item.get("rating")
+        ),
+        None,
+    )
+
+    return {
+        "id": tv.get("id"),
+        "title": tv.get("name"),
+        "description": tv.get("overview"),
+        "thumbnail": (
+            f"{TMDB_IMAGE_BASE}{tv['poster_path']}"
+            if tv.get("poster_path")
+            else None
+        ),
+        "rating": tv.get("vote_average"),
+        "first_air_date": tv.get("first_air_date"),
+        "genres": tv.get("genres", []),
+        "seasons_count": tv.get("number_of_seasons"),
+        "episodes_count": tv.get("number_of_episodes"),
+        "cast": cast,
+        "age_rating": age_rating,
+    }
+
+
+def search_media(query: str):
+    data = tmdb_get("/search/multi", {"query": query})
+
+    results = []
+
+    for item in data.get("results", []):
+        media_type = item.get("media_type")
+
+        if media_type not in ("movie", "tv"):
+            continue
+
+        results.append(
+            {
+                "id": item["id"],
+                "title": item.get("title") or item.get("name"),
+                "thumbnail": (
+                    f"{TMDB_IMAGE_BASE}{item['poster_path']}"
+                    if item.get("poster_path")
+                    else None
+                ),
+                "type": media_type,
+            }
+        )
+
+    return results
