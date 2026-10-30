@@ -42,7 +42,7 @@ export default function LoginForm() {
                 </button>
 
                 <h3 className="text-sm text-center  ">
-                    Don't have an account?
+                    Don&apos;t have an account?
                     <span className="text-gray-400 hover:text-yellow-300 cursor-pointer ml-1">
 
                         <Link
