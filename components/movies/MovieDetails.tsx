@@ -9,7 +9,7 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
   return (
     <article>
       <h1>{movie.title}</h1>
-      <p>{movie.overview}</p>
+      <p>{movie.description}</p>
       <div>
         {movie.genres.map((genre) => (
           <GenreBadge key={genre} genre={genre} />
