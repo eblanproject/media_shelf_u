@@ -41,7 +41,7 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
             <div className="relative flex min-h-[480px] w-screen overflow-hidden">
                 {/* Фон: размытый постер фильма (или заглушка) */}
                 <div
-                    className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110 blur-2xl" : ""}`}
+                    className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110" : ""}`}
                     style={{ backgroundImage: `url(${movie?.thumbnail ?? FALLBACK_BACKGROUND})` }}
                 />
 
