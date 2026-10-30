@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { MovieDetails } from "@/types/media";
 import FavoriteButton from "@/components/movies/FavoriteButton";
@@ -18,6 +19,16 @@ const FALLBACK_BACKGROUND =
 export default function TeaserMovie({ movie }: TeaserMovieProps) {
     // Поиск по фильмам и сериалам через бэкенд (GET /api/search)
     const { query: searchQuery, setQuery: setSearchQuery, debouncedQuery, clearQuery } = useSearch();
+    const router = useRouter();
+
+    // Enter в поле поиска — открыть страницу со всеми результатами
+    const openSearchPage = () => {
+        const q = searchQuery.trim();
+        if (!q) return;
+        clearQuery();
+        setIsMobileSearchOpen(false);
+        router.push(`/search?q=${encodeURIComponent(q)}`);
+    };
     const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
     const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
@@ -164,6 +175,9 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                                     type="search"
                                     value={searchQuery}
                                     onChange={(event) => setSearchQuery(event.target.value)}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") openSearchPage();
+                                    }}
                                     placeholder="Search..."
                                     className="rounded-xl border border-gray-700 bg-black/50 py-2 pr-3 pl-9 text-sm outline-none placeholder:text-gray-400 focus:ring-1 focus:ring-yellow-300"
                                 />
@@ -192,6 +206,9 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                                         type="search"
                                         value={searchQuery}
                                         onChange={(event) => setSearchQuery(event.target.value)}
+                                    onKeyDown={(event) => {
+                                        if (event.key === "Enter") openSearchPage();
+                                    }}
                                         onBlur={() => {
                                             if (searchQuery.trim().length === 0) setIsMobileSearchOpen(false);
                                         }}

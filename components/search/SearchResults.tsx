@@ -65,6 +65,16 @@ export default function SearchResults({ query, onSelect, className = "" }: Searc
             <span className="text-xs text-gray-500">{item.type === "tv" ? "TV" : "Movie"}</span>
           </Link>
         ))}
+      {results && results.length > 0 && (
+        <Link
+          href={`/search?q=${encodeURIComponent(query)}`}
+          onClick={onSelect}
+          onMouseDown={(event) => event.preventDefault()}
+          className="mt-1 block rounded-lg border-t border-gray-800 p-3 text-center text-yellow-200 transition hover:bg-white/10"
+        >
+          See all results ({results.length}) →
+        </Link>
+      )}
     </div>
   );
 }
