@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { MovieDetails } from "@/types/media";
+import FavoriteButton from "@/components/movies/FavoriteButton";
+import SearchResults from "@/components/search/SearchResults";
+import { useSearch } from "@/features/search";
 
 type TeaserMovieProps = {
     /** Популярный сейчас фильм с бэкенда. null — бэкенд недоступен, показываем заглушку. */
@@ -13,7 +16,8 @@ const FALLBACK_BACKGROUND =
     "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=80";
 
 export default function TeaserMovie({ movie }: TeaserMovieProps) {
-    const [searchQuery, setSearchQuery] = useState("");
+    // Поиск по фильмам и сериалам через бэкенд (GET /api/search)
+    const { query: searchQuery, setQuery: setSearchQuery, debouncedQuery, clearQuery } = useSearch();
     const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
     const mobileSearchInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,15 +42,18 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
 
     return (
         <div className="flex w-screen flex-col">
-            <div className="relative flex min-h-[480px] w-screen overflow-hidden">
-                {/* Фон: размытый постер фильма (или заглушка) */}
-                <div
-                    className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110 blur-2xl" : ""}`}
-                    style={{ backgroundImage: `url(${movie?.thumbnail ?? FALLBACK_BACKGROUND})` }}
-                />
+            <div className="relative z-20 flex min-h-[480px] w-screen">
+                {/* Фон обрезается по краям баннера, а выпадающий поиск — нет */}
+                <div className="absolute inset-0 overflow-hidden">
+                    {/* Фон: размытый постер фильма (или заглушка) */}
+                    <div
+                        className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110 blur-2xl" : ""}`}
+                        style={{ backgroundImage: `url(${movie?.thumbnail ?? FALLBACK_BACKGROUND})` }}
+                    />
 
-                {/* Затемнение поверх картинки */}
-                <div className="absolute inset-0 " />
+                    {/* Затемнение поверх картинки */}
+                    <div className="absolute inset-0 bg-black/40" />
+                </div>
 
                 {/* Постер справа — только на широких экранах */}
                 {movie?.thumbnail && (
@@ -102,9 +109,7 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                             </Link>
                         )}
 
-                        <button className="rounded-xl border border-gray-500 cursor-pointer bg-black/30 px-6 py-4 transition hover:scale-105 hover:bg-white/10">
-                            Save
-                        </button>
+                        {movie && <FavoriteButton movieId={movie.id} />}
                     </div>
 
                     {/*Search and genres*/}
@@ -162,6 +167,9 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                                     placeholder="Search..."
                                     className="rounded-xl border border-gray-700 bg-black/50 py-2 pr-3 pl-9 text-sm outline-none placeholder:text-gray-400 focus:ring-1 focus:ring-yellow-300"
                                 />
+                                {!isMobileSearchOpen && (
+                                    <SearchResults query={debouncedQuery} onSelect={clearQuery} />
+                                )}
                             </div>
                         </div>
 
@@ -184,9 +192,18 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                                         type="search"
                                         value={searchQuery}
                                         onChange={(event) => setSearchQuery(event.target.value)}
-                                        onBlur={() => setIsMobileSearchOpen(false)}
+                                        onBlur={() => {
+                                            if (searchQuery.trim().length === 0) setIsMobileSearchOpen(false);
+                                        }}
                                         placeholder="Search movies..."
                                         className="w-full rounded-xl border border-yellow-300 bg-black/70 py-2 pr-3 pl-9 text-base outline-none placeholder:text-gray-400 focus:ring-1 focus:ring-yellow-300"
+                                    />
+                                    <SearchResults
+                                        query={debouncedQuery}
+                                        onSelect={() => {
+                                            clearQuery();
+                                            setIsMobileSearchOpen(false);
+                                        }}
                                     />
                                 </div>
 
@@ -194,7 +211,10 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                                     type="button"
                                     aria-label="Close movie search"
                                     onMouseDown={(event) => event.preventDefault()}
-                                    onClick={() => setIsMobileSearchOpen(false)}
+                                    onClick={() => {
+                                        clearQuery();
+                                        setIsMobileSearchOpen(false);
+                                    }}
                                     className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-gray-700 bg-black/50 text-gray-300 transition hover:bg-white/10 hover:text-yellow-200"
                                 >
                                     <svg

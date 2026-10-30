@@ -35,7 +35,7 @@ import { useRouter } from "next/navigation";
 
         <div className="flex items-center text-sm text-yellow-200 border-r border-gray-700 px-5 hover:text-yellow-300 cursor-pointer">
 
-            <Link href="/profile">
+            <Link href="/favorites">
                 Favorite
 
             </Link>

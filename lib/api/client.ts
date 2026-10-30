@@ -3,12 +3,15 @@ type ApiFetchOptions = RequestInit;
 /** Адрес бэкенда. Задаётся в .env.local (локально) и в настройках Vercel. */
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/+$/, "");
 
+const isServer = typeof window === "undefined";
+
 export async function apiFetch<T>(path: string, options?: ApiFetchOptions): Promise<T> {
-  if (!API_URL) {
+  // На сервере ходим на бэкенд напрямую, в браузере — через свой домен (rewrites в next.config.ts)
+  if (isServer && !API_URL) {
     throw new Error("NEXT_PUBLIC_API_URL is not set (.env.local / Vercel Environment Variables)");
   }
 
-  const url = `${API_URL}${path}`;
+  const url = isServer ? `${API_URL}${path}` : path;
   let response: Response;
 
   try {

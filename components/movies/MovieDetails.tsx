@@ -1,4 +1,5 @@
 import type { MovieDetails as MovieDetailsData } from "@/types/media";
+import FavoriteButton from "@/components/movies/FavoriteButton";
 
 type MovieDetailsProps = {
   movie: MovieDetailsData;
@@ -37,6 +38,10 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
         )}
 
         {movie.description && <p className="max-w-2xl text-gray-300">{movie.description}</p>}
+
+        <div>
+          <FavoriteButton movieId={movie.id} className="text-sm" />
+        </div>
 
         {movie.cast.length > 0 && (
           <div>
