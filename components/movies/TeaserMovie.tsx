@@ -41,12 +41,12 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
             <div className="relative flex min-h-[480px] w-screen overflow-hidden">
                 {/* Фон: размытый постер фильма (или заглушка) */}
                 <div
-                    className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110" : ""}`}
+                    className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110 blur-2xl" : ""}`}
                     style={{ backgroundImage: `url(${movie?.thumbnail ?? FALLBACK_BACKGROUND})` }}
                 />
 
                 {/* Затемнение поверх картинки */}
-                <div className="absolute inset-0 bg-black/65" />
+                <div className="absolute inset-0 bg-black/40" />
 
                 {/* Постер справа — только на широких экранах */}
                 {movie?.thumbnail && (
