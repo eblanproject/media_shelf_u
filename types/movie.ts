@@ -1,22 +1,24 @@
 export type Genre =
-  | "Action"
-  | "Comedy"
-  | "Documentary"
-  | "Drama"
-  | "Fantasy"
-  | "Horror"
-  | "Romance"
-  | "Sci-Fi"
-  | "Thriller";
+    | "Horror"
+    | "Fantasy"
+    | "Action"
+    | "Comedy"
+    | "Drama"
+    | "Romance"
+    | "Thriller"
+    | "Sci-Fi"
+    | "Documentary";
+
+/** Жанр + псевдо-значение "All" для фильтра */
+export type GenreFilter = Genre | "All";
 
 export type Movie = {
-  id: string;
-  title: string;
-  overview: string;
-  releaseYear: number;
-  runtimeMinutes?: number;
-  rating?: number;
-  posterUrl?: string;
-  backdropUrl?: string;
-  genres: Genre[];
+    id: string;
+    title: string;
+    director: string;
+    year: number;
+    durationMin: number;
+    description: string;
+    posterUrl: string;
+    genres: Genre[];
 };

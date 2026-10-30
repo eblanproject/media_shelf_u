@@ -73,7 +73,9 @@ export default function MovieGrid() {
     return (
             <div className="flex w-full flex-col px-4 sm:px-6">
                 <h2 className="mt-10 text-center text-lg font-bold text-gray-400">Catalog</h2>
-                <div className="grid w-full max-w-screen-2xl self-center grid-cols-2 justify-items-center gap-x-4 gap-y-6 mt-4 mb-40 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+                <div className="grid w-full max-w-screen-2xl self-center grid-cols-2 justify-items-center gap-x-4
+                gap-y-6 mt-4 mb-40 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+
                     {/* Render your movie items here
                     {movies.map((movie) => (
                         <div key={movie.id} className="flex flex-col items-center gap-2">

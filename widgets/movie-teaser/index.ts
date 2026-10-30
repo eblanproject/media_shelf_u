@@ -1,0 +1,1 @@
+export { default as TeaserMovie } from "./ui/TeaserMovie";

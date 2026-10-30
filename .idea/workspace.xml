@@ -5,9 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ea32f55-b266-4638-8fd8-765f2253318c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/features/genres/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/genres/model/genres.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/genres/model/useGenreFilter.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/genres/ui/GenreBadge.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/genres/ui/GenreList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/search/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/search/model/useMobileSearch.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/search/model/useSearch.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/search/ui/MobileSearchBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/search/ui/SearchIcon.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/features/search/ui/SearchInput.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mock/user.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/movies/filterMovies.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/site.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/widgets/movie-teaser/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/widgets/movie-teaser/ui/TeaserMovie.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/widgets/movie-toolbar/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/widgets/movie-toolbar/ui/MovieToolBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/registration/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/registration/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(site)/favorites/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/favorites/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(site)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(site)/movies/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/movies/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(site)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(site)/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/settings/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/MsuLogo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MsuLogo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/layout/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/movies/GenreBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/movies/GenreBadge.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/movies/MovieGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/movies/MovieGrid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/profile/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/profile/ProfileInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/types/movie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/movie.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +50,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -42,6 +70,15 @@
     &quot;accountId&quot;: &quot;186cee05-9fca-4c69-ad5b-174a7907fa28&quot;
   }
 }</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/../fintech-monorepo/node_modules/@eslint-community/eslint-utils/package.json" />
+    <dismissed value="$PROJECT_DIR$/../fintech-monorepo/node_modules/eslint-plugin-import/package.json" />
+    <dismissed value="$PROJECT_DIR$/../fintech-monorepo/node_modules/eslint-plugin-react-hooks/package.json" />
+    <dismissed value="$PROJECT_DIR$/../fintech-monorepo/node_modules/eslint/package.json" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -70,10 +107,12 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;frontend&quot;,
     &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
     &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kronk.content.tree.expanded.paths&quot;: &quot;&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/a1/WebstormProjects/ms2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -82,14 +121,16 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;web-ide.project.structure&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.3058104&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/a1/WebstormProjects/ms2/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/widgets/movie-toolbar/ui" />
       <recent name="$PROJECT_DIR$/app/(auth)/signIn" />
       <recent name="$PROJECT_DIR$/components/movies" />
     </key>
@@ -135,11 +176,32 @@
       <workItem from="1788758619155" duration="36331000" />
       <workItem from="1788873833235" duration="12514000" />
       <workItem from="1788941009696" duration="1914000" />
-      <workItem from="1788956250338" duration="4251000" />
+      <workItem from="1788956250338" duration="9142000" />
+      <workItem from="1789022330289" duration="1745000" />
+      <workItem from="1789220821448" duration="582000" />
+      <workItem from="1789358247897" duration="11886000" />
+      <workItem from="1789397258825" duration="3634000" />
+      <workItem from="1789458564169" duration="8750000" />
+      <workItem from="1789531568384" duration="1525000" />
+      <workItem from="1789825029984" duration="2000" />
+      <workItem from="1790664939844" duration="21000" />
+      <workItem from="1791883377505" duration="1208000" />
+      <workItem from="1793344562817" duration="892000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
