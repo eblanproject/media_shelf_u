@@ -8,24 +8,38 @@ from app.core.config import (
 
 
 def tmdb_get(endpoint: str, params: dict | None = None):
-    if params is None:
-        params = {}
+    request_params = {
+        **(params or {}),
+        "api_key": TMDB_API_KEY,
+        "language": "en-US",
+    }
 
-    params["api_key"] = TMDB_API_KEY
-    params["language"] = "en-US"
+    try:
+        response = requests.get(
+            f"{TMDB_BASE_URL}{endpoint}",
+            params=request_params,
+            timeout=10,
+        )
 
-    response = requests.get(
-        f"{TMDB_BASE_URL}{endpoint}",
-        params=params,
-        timeout=10,
-    )
+        response.raise_for_status()
+        return response.json()
 
-    response.raise_for_status()
+    except requests.exceptions.Timeout as error:
+        raise RuntimeError("TMDB request timed out") from error
 
-    return response.json()
+    except requests.exceptions.ConnectionError as error:
+        raise RuntimeError("Could not connect to TMDB") from error
+
+    except requests.exceptions.HTTPError as error:
+        raise RuntimeError(
+            f"TMDB returned HTTP {error.response.status_code}"
+        ) from error
+
+    except requests.exceptions.RequestException as error:
+        raise RuntimeError("TMDB request failed") from error
 
 
-def get_movies(category: str = "popular", count: int = 10):
+def get_movies(category: str = "popular", count: int = 20):
     data = tmdb_get(f"/movie/{category}")
 
     movies = []
@@ -56,7 +70,7 @@ def get_movie(movie_id: int):
 
     cast = []
 
-    for person in movie.get("credits", {}).get("cast", [])[:10]:
+    for person in movie.get("credits", {}).get("cast", [])[:20]:
         cast.append(
             {
                 "id": person.get("id"),
@@ -107,7 +121,7 @@ def get_movie(movie_id: int):
     }
 
 
-def get_similar_movies(movie_id: int, count: int = 10):
+def get_similar_movies(movie_id: int, count: int = 20):
     data = tmdb_get(f"/movie/{movie_id}/similar")
 
     movies = []
@@ -127,7 +141,7 @@ def get_similar_movies(movie_id: int, count: int = 10):
 
     return movies
 
-def get_tv_series(category: str = "popular", count: int = 10):
+def get_tv_series(category: str = "popular", count: int = 20):
     data = tmdb_get(f"/tv/{category}")
 
     return [
@@ -156,7 +170,7 @@ def get_tv_series_details(tv_id: int):
             "name": person.get("name"),
             "character": person.get("character"),
         }
-        for person in tv.get("credits", {}).get("cast", [])[:10]
+        for person in tv.get("credits", {}).get("cast", [])[:20]
     ]
 
     age_rating = next(
