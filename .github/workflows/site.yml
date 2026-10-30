@@ -1,4 +1,4 @@
-name: CI / Deploy
+name: CI
 
 on:
   push:
@@ -41,50 +41,4 @@ jobs:
       - name: Build
         run: pnpm build
 
-  # 2. Деплой на GitHub Pages — только после успешной проверки и только из main
-  deploy:
-    needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      # API-роуты требуют сервер, на GitHub Pages их нет — убираем их только из этой сборки
-      - name: Remove API routes for static export
-        run: rm -rf app/api
-
-      - name: Build static site
-        run: pnpm build
-        env:
-          GITHUB_PAGES: "true"
-          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
-
-      # Без этого файла GitHub Pages не отдаёт папку _next
-      - name: Add .nojekyll
-        run: touch out/.nojekyll
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  # Деплой делает Vercel сам (интеграция с GitHub), здесь только проверка кода

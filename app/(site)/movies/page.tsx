@@ -1,14 +1,24 @@
-export default function MoviesPage() {
+import MovieGrid from "@/components/movies/MovieGrid";
+import { getMovies } from "@/lib/api/movies";
+import { errorMessage } from "@/lib/api/client";
+import type { MediaListItem } from "@/types/media";
 
-    // // app/movies/[id]/page.tsx
-    // const { genres, selectedGenre, setSelectedGenre } = useGenreFilter({
-    //     availableGenres: movie.genres, // только жанры этого фильма
-    // });
+// Данные берутся с бэкенда при каждом запросе, а не при сборке
+export const dynamic = "force-dynamic";
+
+export default async function MoviesPage() {
+  let movies: MediaListItem[] = [];
+  let error: string | null = null;
+
+  try {
+    movies = await getMovies("popular", 20);
+  } catch (e) {
+    error = errorMessage(e, "Could not load movies. Try again later.");
+  }
 
   return (
-    <section className="mx-auto w-full max-w-7xl px-6 py-10">
-      <h1 className="text-3xl font-bold">Movies</h1>
-      <p className="mt-2 text-gray-400">The complete movie catalog will appear here.</p>
+    <section className="mx-auto w-full max-w-7xl py-10">
+      <MovieGrid title="Popular movies" movies={movies} error={error} />
     </section>
   );
 }
