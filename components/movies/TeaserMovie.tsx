@@ -46,7 +46,7 @@ export default function TeaserMovie({ movie }: TeaserMovieProps) {
                 />
 
                 {/* Затемнение поверх картинки */}
-                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 " />
 
                 {/* Постер справа — только на широких экранах */}
                 {movie?.thumbnail && (
