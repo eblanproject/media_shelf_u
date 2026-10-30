@@ -1,3 +1,12 @@
+import { movies } from "@/data/movies";
+
+// Для статического экспорта (GitHub Pages) страницы фильмов создаются заранее
+// по списку из data/movies.ts. Пока список пуст — генерируется одна заглушка.
+export function generateStaticParams() {
+  const params = movies.map((movie) => ({ id: movie.id }));
+  return params.length > 0 ? params : [{ id: "placeholder" }];
+}
+
 type MoviePageProps = {
   params: Promise<{ id: string }>;
 };

@@ -41,14 +41,18 @@ jobs:
       - name: Build
         run: pnpm build
 
-  # 2. Деплой на Vercel — только после успешной проверки и только из main
+  # 2. Деплой на GitHub Pages — только после успешной проверки и только из main
   deploy:
     needs: check
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -61,14 +65,27 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+`
+      # API-роуты требуют сервер, на GitHub Pages их нет — убираем их только из этой сборки
+      - name: Remove API routes for static export
+        run: rm -rf app/api
 
-      - name: Pull Vercel settings
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build static site
+        run: pnpm build
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
 
-      - name: Build
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      # Без этого файла GitHub Pages не отдаёт папку _next
+      - name: Add .nojekyll
+        run: touch out/.nojekyll
 
-      - name: Deploy
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

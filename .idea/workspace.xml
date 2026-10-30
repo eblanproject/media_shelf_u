@@ -4,39 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ea32f55-b266-4638-8fd8-765f2253318c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/features/genres/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/genres/model/genres.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/genres/model/useGenreFilter.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/genres/ui/GenreBadge.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/genres/ui/GenreList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/search/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/search/model/useMobileSearch.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/search/model/useSearch.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/search/ui/MobileSearchBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/search/ui/SearchIcon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/search/ui/SearchInput.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/mock/user.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/movies/filterMovies.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/site.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/widgets/movie-teaser/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/widgets/movie-teaser/ui/TeaserMovie.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/widgets/movie-toolbar/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/widgets/movie-toolbar/ui/MovieToolBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(site)/favorites/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/favorites/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(site)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(site)/movies/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/movies/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(site)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(site)/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(site)/settings/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/MsuLogo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/MsuLogo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/layout/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/movies/GenreBadge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/movies/GenreBadge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/movies/MovieGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/movies/MovieGrid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/profile/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/profile/ProfileInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/movie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/types/movie.ts" afterDir="false" />
-    </list>
+    <list default="true" id="9ea32f55-b266-4638-8fd8-765f2253318c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +154,7 @@
       <workItem from="1789825029984" duration="2000" />
       <workItem from="1790664939844" duration="21000" />
       <workItem from="1791883377505" duration="1208000" />
-      <workItem from="1793344562817" duration="892000" />
+      <workItem from="1793344562817" duration="1235000" />
     </task>
     <servers />
   </component>
