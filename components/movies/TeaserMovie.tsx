@@ -1,8 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import type { MovieDetails } from "@/types/media";
 
-export default function TeaserMovie() {
+type TeaserMovieProps = {
+    /** Популярный сейчас фильм с бэкенда. null — бэкенд недоступен, показываем заглушку. */
+    movie: MovieDetails | null;
+};
+
+const FALLBACK_BACKGROUND =
+    "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=80";
+
+export default function TeaserMovie({ movie }: TeaserMovieProps) {
     const [searchQuery, setSearchQuery] = useState("");
     const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
     const mobileSearchInputRef = useRef<HTMLInputElement>(null);
@@ -28,35 +38,69 @@ export default function TeaserMovie() {
 
     return (
         <div className="flex w-screen flex-col">
-            <div
-                className="relative flex min-h-[480px] w-screen overflow-hidden bg-cover bg-center"
-                style={{
-                    backgroundImage:
-                        "url(https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2000&q=80)",
-                }}
-            >
+            <div className="relative flex min-h-[480px] w-screen overflow-hidden">
+                {/* Фон: размытый постер фильма (или заглушка) */}
+                <div
+                    className={`absolute inset-0 bg-cover bg-center ${movie?.thumbnail ? "scale-110 blur-2xl" : ""}`}
+                    style={{ backgroundImage: `url(${movie?.thumbnail ?? FALLBACK_BACKGROUND})` }}
+                />
+
                 {/* Затемнение поверх картинки */}
                 <div className="absolute inset-0 bg-black/65" />
 
+                {/* Постер справа — только на широких экранах */}
+                {movie?.thumbnail && (
+                    <Link
+                        href={`/movies/${movie.id}`}
+                        aria-label={movie.title}
+                        className="absolute top-7 right-7 z-10 hidden aspect-[2/3] w-48 rounded-xl bg-cover bg-center shadow-2xl transition hover:scale-105 lg:block xl:w-56"
+                        style={{ backgroundImage: `url(${movie.thumbnail})` }}
+                    />
+                )}
+
                 {/* Контент поверх затемнения */}
                 <div className="relative z-10 flex w-full flex-col gap-5 p-7 text-white">
-                    <h6 className="text-xs font-bold text-yellow-200">Featured Movie</h6>
+                    <h6 className="text-xs font-bold text-yellow-200">Popular now</h6>
 
-                    <h1 className="pb-3 text-4xl font-bold">Oppenheimer</h1>
+                    {movie ? (
+                        <>
+                            <h1 className="pb-3 text-4xl font-bold lg:max-w-[calc(100%-16rem)]">{movie.title}</h1>
 
-                    <p className="text-gray-300">
-                        dir. Christopher Nolan · 2023 · 180 min
-                    </p>
+                            <p className="flex flex-wrap gap-x-2 text-gray-300">
+                                {[
+                                    movie.release_date?.slice(0, 4),
+                                    movie.runtime ? `${movie.runtime} min` : null,
+                                    movie.genres.slice(0, 3).map((genre) => genre.name).join(", ") || null,
+                                ]
+                                    .filter(Boolean)
+                                    .join(" · ")}
+                                {movie.rating ? (
+                                    <span className="text-yellow-300">· ★ {movie.rating.toFixed(1)}</span>
+                                ) : null}
+                            </p>
 
-                    <p className="max-w-xl text-gray-300">
-                        The story of American scientist J. Robert Oppenheimer and his role
-                        in the development of the atomic bomb during WWII.
-                    </p>
+                            {movie.description && (
+                                <p className="line-clamp-4 max-w-xl text-gray-300">{movie.description}</p>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <h1 className="pb-3 text-4xl font-bold">Discover movies</h1>
+                            <p className="max-w-xl text-gray-300">
+                                Popular movies will appear here as soon as the server responds.
+                            </p>
+                        </>
+                    )}
 
                     <div className="mt-10 flex items-center gap-3 text-sm">
-                        <button className="rounded-xl bg-yellow-300 px-5 py-4 cursor-pointer text-black transition hover:scale-105 hover:bg-yellow-200">
-                            View details
-                        </button>
+                        {movie && (
+                            <Link
+                                href={`/movies/${movie.id}`}
+                                className="rounded-xl bg-yellow-300 px-5 py-4 cursor-pointer text-black transition hover:scale-105 hover:bg-yellow-200"
+                            >
+                                View details
+                            </Link>
+                        )}
 
                         <button className="rounded-xl border border-gray-500 cursor-pointer bg-black/30 px-6 py-4 transition hover:scale-105 hover:bg-white/10">
                             Save

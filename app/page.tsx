@@ -2,9 +2,9 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import TeaserMovie from "@/components/movies/TeaserMovie";
 import MovieGrid from "@/components/movies/MovieGrid";
-import { getMovies } from "@/lib/api/movies";
+import { getMovieById, getMovies } from "@/lib/api/movies";
 import { errorMessage } from "@/lib/api/client";
-import type { MediaListItem } from "@/types/media";
+import type { MediaListItem, MovieDetails } from "@/types/media";
 
 // Данные берутся с бэкенда при каждом запросе, а не при сборке
 export const dynamic = "force-dynamic";
@@ -19,6 +19,17 @@ export default async function Home() {
         movies = await getMovies("popular", 20);
     } catch (e) {
         error = errorMessage(e, "Could not load movies. Try again later.");
+    }
+
+    // Баннер: самый популярный сейчас фильм (первый в списке popular) с подробностями
+    let featured: MovieDetails | null = null;
+
+    if (movies.length > 0) {
+        try {
+            featured = await getMovieById(movies[0].id);
+        } catch (e) {
+            errorMessage(e, "Could not load featured movie");
+        }
     }
 
     //
@@ -37,20 +48,7 @@ export default async function Home() {
 
         <Header/>
 
-        <TeaserMovie
-            // title={featured.title}
-            // director={featured.director}
-            // year={featured.year}
-            // durationMin={featured.durationMin}
-            // description={featured.description}
-            // posterUrl={featured.posterUrl}
-            // genres={genres}
-            // selectedGenre={selectedGenre}
-            // onSelectGenre={setSelectedGenre}
-            // query={query}
-            // onQueryChange={setQuery}
-
-        />
+        <TeaserMovie movie={featured} />
 
         {/*<section className="p-7">*/}
         {/*    {visibleMovies.map((movie) => (*/}
