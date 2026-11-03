@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.routes.movies import router as movies_router
 from app.routes.tv import router as tv_router
 from app.routes.search import router as search_router
+from app.routes.auth import router as auth_router
 
 
 app = FastAPI(
@@ -14,6 +15,7 @@ app = FastAPI(
 app.include_router(movies_router)
 app.include_router(tv_router)
 app.include_router(search_router)
+app.include_router(auth_router)
 
 
 @app.get("/")
