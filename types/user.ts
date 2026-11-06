@@ -1,6 +1,7 @@
+/** Пользователь — ответ бэкенда GET /auth/me и POST /auth/register */
 export type UserProfile = {
-  id: string;
-  name: string;
+  id: number;
+  username: string;
   email: string;
   avatarUrl?: string;
 };

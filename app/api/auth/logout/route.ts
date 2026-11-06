@@ -1,3 +1,9 @@
+import { NextResponse } from "next/server";
+import { TOKEN_COOKIE } from "@/lib/auth/session";
+
+// POST /api/auth/logout — на бэкенде выхода нет (JWT), просто удаляем cookie
 export async function POST() {
-  return Response.json({ message: "Logout API is not implemented yet." }, { status: 501 });
+  const result = NextResponse.json({ ok: true });
+  result.cookies.delete(TOKEN_COOKIE);
+  return result;
 }

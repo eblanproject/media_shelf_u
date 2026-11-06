@@ -1,5 +1,6 @@
 import type { UserProfile } from "@/types/user";
 import Link from "next/link";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 type ProfileInfoProps = {
   user: UserProfile;
@@ -19,13 +20,13 @@ export default function ProfileInfo({ user }: ProfileInfoProps) {
                 {/*Profile image and logout*/}
 
                 <div className="flex flex-3 flex-row w-10 h-auto text-center items-center">
-                    <div className="flex w-15 h-15 bg-green-50 ml-10 rounded-full shrink-0">
-
+                    <div className="flex w-15 h-15 ml-10 shrink-0 items-center justify-center rounded-full bg-yellow-200 text-2xl font-black text-black">
+                        {user.username.charAt(0).toUpperCase()}
                     </div>
 
                     <div className="flex flex-col ml-3 text-left">
-                        <span>{user.name}</span>
-                        <span>{user?.email}</span>
+                        <span className="font-bold">{user.username}</span>
+                        <span className="text-sm text-gray-300">{user.email}</span>
                     </div>
 
 
@@ -42,9 +43,7 @@ export default function ProfileInfo({ user }: ProfileInfoProps) {
                     </button>
                     </Link>
 
-                    <button className="bg-black/30 hover:bg-black text-white font-bold py-2 px-4 rounded border border-gray-700">
-                        Logout
-                    </button>
+                    <LogoutButton className="cursor-pointer bg-black/30 hover:bg-black text-white font-bold py-2 px-4 rounded border border-gray-700" />
                 </section>
 
             </div>

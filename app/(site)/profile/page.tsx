@@ -1,17 +1,17 @@
-"use client";
-
+import { redirect } from "next/navigation";
 import ProfileInfo from "@/components/profile/ProfileInfo";
 import FavoritesPage from "@/app/(site)/favorites/page";
-import { MOCKUSER } from "@/lib/mock/user";
+import { getCurrentUser } from "@/lib/auth/session";
 
-export default function ProfilePage() {
+// Профиль доступен только после входа: пользователь берётся с бэкенда (GET /auth/me)
+export default async function ProfilePage() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/auth/signin");
+
   return (
-      <>
-          <ProfileInfo user={MOCKUSER} />
-          <FavoritesPage/>
-</>
-
-
-
+    <>
+      <ProfileInfo user={user} />
+      <FavoritesPage />
+    </>
   );
 }
