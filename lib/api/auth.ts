@@ -43,5 +43,5 @@ export function logout() {
 export async function getMe(): Promise<UserProfile | null> {
   const response = await fetch("/api/auth/me");
   if (!response.ok) return null;
-  return (await response.json()) as UserProfile;
+  return (await response.json()) as UserProfile | null;
 }
