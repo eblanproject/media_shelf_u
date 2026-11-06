@@ -6,6 +6,11 @@ dependencies = [
     "fastapi",
     "requests",
     "python-dotenv",
+    "sqlalchemy>=2.0",
+    "psycopg[binary]>=3.2",
+    "pyjwt",
+    "pwdlib[argon2]",
+    "email-validator",
 ]
 
 [tool.vercel]
