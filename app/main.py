@@ -4,7 +4,7 @@ from app.routes.tv import router as tv_router
 from app.routes.search import router as search_router
 from app.routes.auth import router as auth_router
 from app.routes.bookmarks import router as bookmarks_router
-from app.routes.database import import create_tables
+from app.routes.database import create_tables
 
 
 app = FastAPI(
