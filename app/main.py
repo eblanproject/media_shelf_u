@@ -4,6 +4,7 @@ from app.routes.tv import router as tv_router
 from app.routes.search import router as search_router
 from app.routes.auth import router as auth_router
 from app.routes.bookmarks import router as bookmarks_router
+from app.routes.database import import create_tables
 
 
 app = FastAPI(
@@ -18,6 +19,7 @@ app.include_router(tv_router)
 app.include_router(search_router)
 app.include_router(auth_router)
 app.include_router(bookmarks_router)
+app.include_router(create_tables)
 
 
 @app.get("/")
@@ -26,3 +28,7 @@ def root():
         "message": "MediaShelf API",
         "status": "ok",
     }
+
+@app.on_event("startup")
+def on_startup():
+    create_tables()
