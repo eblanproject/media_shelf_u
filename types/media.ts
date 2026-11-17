@@ -20,6 +20,13 @@ export type CastMember = {
     profile?: string | null;
 };
 
+/** Человек из съёмочной группы (режиссёр). Контракт: docs/backend/people.md */
+export type CrewMember = {
+    id: number;
+    name: string;
+    profile?: string | null;
+};
+
 /** GET /api/movies/{id} */
 export type MovieDetails = {
     id: number;
@@ -32,6 +39,8 @@ export type MovieDetails = {
     runtime: number | null;
     cast: CastMember[];
     age_rating: string | null;
+    /** Пока бэкенд не отдаёт — поле необязательное */
+    directors?: CrewMember[];
 };
 
 /** GET /api/tv/{id} */
@@ -49,9 +58,42 @@ export type TvDetails = {
     age_rating: string | null;
 };
 
-/** GET /api/search?query=... */
+/** GET /api/search?query=... — для людей thumbnail это фото */
 export type SearchResult = MediaListItem & {
+    type: "movie" | "tv" | "person";
+    /** Только для людей: "Acting", "Directing", ... */
+    known_for_department?: string | null;
+};
+
+/** Фильм или сериал в фильмографии человека */
+export type PersonCredit = {
+    id: number;
+    title: string;
+    thumbnail: string | null;
     type: "movie" | "tv";
+    /** Год выхода, null — неизвестен или ещё не вышел */
+    year: number | null;
+    rating: number | null;
+    /** Для ролей — персонаж */
+    character?: string | null;
+    /** Для работы в группе — должность: "Director", "Screenplay", ... */
+    job?: string | null;
+};
+
+/** GET /api/people/{id} — краткая справка о человеке */
+export type PersonDetails = {
+    id: number;
+    name: string;
+    profile: string | null;
+    biography: string | null;
+    birthday: string | null;
+    deathday: string | null;
+    place_of_birth: string | null;
+    known_for_department: string | null;
+    credits: {
+        cast: PersonCredit[];
+        crew: PersonCredit[];
+    };
 };
 
 /** Категории TMDB, которые принимает параметр ?category= */

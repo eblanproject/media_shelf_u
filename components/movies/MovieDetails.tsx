@@ -1,4 +1,5 @@
 import type { MovieDetails as MovieDetailsData } from "@/types/media";
+import Link from "next/link";
 import FavoriteButton from "@/components/movies/FavoriteButton";
 
 type MovieDetailsProps = {
@@ -35,6 +36,20 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
               </span>
             ))}
           </div>
+        )}
+
+        {movie.directors && movie.directors.length > 0 && (
+          <p className="text-sm text-gray-400">
+            Directed by{" "}
+            {movie.directors.map((director, i) => (
+              <span key={director.id}>
+                {i > 0 && ", "}
+                <Link href={`/people/${director.id}`} className="font-semibold text-gray-100 hover:text-yellow-200">
+                  {director.name}
+                </Link>
+              </span>
+            ))}
+          </p>
         )}
 
         {movie.description && <p className="max-w-2xl text-gray-300">{movie.description}</p>}

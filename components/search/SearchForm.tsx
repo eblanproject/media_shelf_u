@@ -26,7 +26,7 @@ export default function SearchForm({ initialQuery = "" }: SearchFormProps) {
         type="search"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        placeholder="Search movies and TV series..."
+        placeholder="Search movies, series and people..."
         aria-label="Search movies and TV series"
         className="flex-1 rounded-xl border border-gray-700 bg-black/50 px-4 py-3 text-white outline-none placeholder:text-gray-400 focus:ring-1 focus:ring-yellow-300"
       />

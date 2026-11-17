@@ -1,5 +1,12 @@
 type ApiFetchOptions = RequestInit;
 
+/** Ошибка ответа бэкенда — со статусом, чтобы отличать 404 от остальных */
+export class ApiError extends Error {
+  constructor(message: string, public status: number) {
+    super(message);
+  }
+}
+
 /** Адрес бэкенда. Задаётся в .env.local (локально) и в настройках Vercel. */
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/+$/, "");
 
@@ -22,7 +29,7 @@ export async function apiFetch<T>(path: string, options?: ApiFetchOptions): Prom
 
   if (!response.ok) {
     const body = await response.text().catch(() => "");
-    throw new Error(`Backend returned ${response.status} for ${url}${body ? `: ${body.slice(0, 300)}` : ""}`);
+    throw new ApiError(`Backend returned ${response.status} for ${url}${body ? `: ${body.slice(0, 300)}` : ""}`, response.status);
   }
 
   return response.json() as Promise<T>;

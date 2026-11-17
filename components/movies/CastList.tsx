@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { CastMember } from "@/types/media";
 
 type CastListProps = {
@@ -15,10 +16,11 @@ export default function CastList({ cast }: CastListProps) {
 
       <ul className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-3">
         {cast.map((person) => (
-          <li key={person.id} className="flex w-28 shrink-0 snap-start flex-col gap-2">
+          <li key={person.id} className="w-28 shrink-0 snap-start">
+            <Link href={`/people/${person.id}`} className="group flex flex-col gap-2">
             {person.profile ? (
               <div
-                className="aspect-[2/3] w-full rounded-md bg-gray-800 bg-cover bg-center"
+                className="aspect-[2/3] w-full rounded-md bg-gray-800 bg-cover bg-center transition group-hover:brightness-75"
                 style={{ backgroundImage: `url(${person.profile})` }}
                 role="img"
                 aria-label={person.name}
@@ -29,9 +31,10 @@ export default function CastList({ cast }: CastListProps) {
               </div>
             )}
             <div className="flex flex-col">
-              <span className="line-clamp-2 text-sm font-semibold text-gray-100">{person.name}</span>
+              <span className="line-clamp-2 text-sm font-semibold text-gray-100 transition group-hover:text-yellow-200">{person.name}</span>
               {person.character && <span className="line-clamp-2 text-xs text-gray-500">{person.character}</span>}
             </div>
+            </Link>
           </li>
         ))}
       </ul>

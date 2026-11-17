@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import MovieCard from "@/components/movies/MovieCard";
 import MovieCardSkeleton from "@/components/movies/MovieCardSkeleton";
@@ -30,7 +31,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
       <div className="px-4 sm:px-6">
         {!query ? (
-          <p className="mt-10 text-center text-gray-400">Type a movie or series title to start searching.</p>
+          <p className="mt-10 text-center text-gray-400">Type a movie, series or person to start searching.</p>
         ) : (
           // key — чтобы на каждый новый запрос снова показывался скелетон
           <Suspense key={query} fallback={<SearchResultsSkeleton />}>
@@ -62,6 +63,7 @@ async function Results({ query }: { query: string }) {
 
   const movies = results.filter((item) => item.type === "movie");
   const series = results.filter((item) => item.type === "tv");
+  const people = results.filter((item) => item.type === "person");
 
   return (
     <>
@@ -71,6 +73,7 @@ async function Results({ query }: { query: string }) {
 
       {movies.length > 0 && <ResultSection title="Movies" items={movies} />}
       {series.length > 0 && <ResultSection title="TV series" items={series} />}
+      {people.length > 0 && <PeopleSection items={people} />}
     </>
   );
 }
@@ -87,6 +90,42 @@ function ResultSection({ title, items }: { title: string; items: SearchResult[] 
             href={item.type === "tv" ? `/tv/${item.id}` : `/movies/${item.id}`}
             badge={item.type === "tv" ? "TV" : undefined}
           />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PeopleSection({ items }: { items: SearchResult[] }) {
+  return (
+    <section className="mt-10">
+      <h2 className="mb-4 text-xl font-bold">People</h2>
+      <div className={GRID_CLASS}>
+        {items.map((person) => (
+          <Link
+            key={person.id}
+            href={`/people/${person.id}`}
+            className="group flex w-full max-w-[11rem] flex-col items-center gap-2 transition hover:scale-105"
+          >
+            {person.thumbnail ? (
+              <div
+                className="aspect-square w-full rounded-full bg-gray-800 bg-cover bg-top transition group-hover:brightness-75"
+                style={{ backgroundImage: `url(${person.thumbnail})` }}
+                role="img"
+                aria-label={person.title}
+              />
+            ) : (
+              <div className="flex aspect-square w-full items-center justify-center rounded-full bg-gray-800 text-4xl font-black text-gray-600">
+                {person.title.charAt(0)}
+              </div>
+            )}
+            <div className="flex flex-col items-center text-center">
+              <span className="text-sm text-gray-200 group-hover:text-yellow-200">{person.title}</span>
+              {person.known_for_department && (
+                <span className="text-xs text-gray-500">{person.known_for_department}</span>
+              )}
+            </div>
+          </Link>
         ))}
       </div>
     </section>

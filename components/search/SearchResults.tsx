@@ -60,17 +60,19 @@ export default function SearchResults({ query, onSelect, className = "" }: Searc
         results.slice(0, 10).map((item) => (
           <Link
             key={`${item.type}-${item.id}`}
-            href={item.type === "tv" ? `/tv/${item.id}` : `/movies/${item.id}`}
+            href={hrefFor(item)}
             onClick={onSelect}
             onMouseDown={(event) => event.preventDefault()}
             className="flex items-center gap-3 rounded-lg p-2 transition hover:bg-white/10"
           >
             <div
-              className="aspect-[2/3] w-9 shrink-0 rounded bg-gray-700 bg-cover bg-center"
+              className={`w-9 shrink-0 bg-gray-700 bg-cover bg-center ${
+                item.type === "person" ? "aspect-square rounded-full bg-top" : "aspect-[2/3] rounded"
+              }`}
               style={item.thumbnail ? { backgroundImage: `url(${item.thumbnail})` } : undefined}
             />
             <span className="flex-1 text-gray-100">{item.title}</span>
-            <span className="text-xs text-gray-500">{item.type === "tv" ? "TV" : "Movie"}</span>
+            <span className="text-xs text-gray-500">{TYPE_LABELS[item.type]}</span>
           </Link>
         ))}
       {results && results.length > 0 && (
@@ -85,4 +87,12 @@ export default function SearchResults({ query, onSelect, className = "" }: Searc
       )}
     </div>
   );
+}
+
+const TYPE_LABELS: Record<SearchResult["type"], string> = { movie: "Movie", tv: "TV", person: "Person" };
+
+function hrefFor(item: SearchResult) {
+  if (item.type === "tv") return `/tv/${item.id}`;
+  if (item.type === "person") return `/people/${item.id}`;
+  return `/movies/${item.id}`;
 }

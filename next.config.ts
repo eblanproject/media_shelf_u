@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
 
-  // Запросы из браузера к /api/movies, /api/tv, /api/search проксируются на бэкенд.
+  // Запросы из браузера к /api/movies, /api/tv, /api/search, /api/people проксируются на бэкенд.
   // Так браузер обращается к своему же домену и CORS на бэкенде не нужен.
   async rewrites() {
     if (!API_URL) return [];
@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
       { source: "/api/tv/:path*", destination: `${API_URL}/api/tv/:path*` },
       { source: "/api/tv", destination: `${API_URL}/api/tv` },
       { source: "/api/search", destination: `${API_URL}/api/search` },
+      { source: "/api/people/:path*", destination: `${API_URL}/api/people/:path*` },
     ];
   },
 };

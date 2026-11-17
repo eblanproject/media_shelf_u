@@ -3,6 +3,7 @@ import type {
   MediaListItem,
   MovieCategory,
   MovieDetails,
+  PersonDetails,
   SearchResult,
   TvCategory,
   TvDetails,
@@ -33,4 +34,9 @@ export function getTvById(id: string | number) {
 // Поиск по фильмам и сериалам
 export function searchMedia(query: string) {
   return apiFetch<SearchResult[]>(`/api/search?query=${encodeURIComponent(query)}`);
+}
+
+// Люди: актёры, режиссёры (контракт: docs/backend/people.md)
+export function getPerson(id: string | number) {
+  return apiFetch<PersonDetails>(`/api/people/${id}`);
 }
