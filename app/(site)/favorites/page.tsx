@@ -1,39 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useFavorites } from "@/hooks/useFavorites";
-import { getMovieById } from "@/lib/api/movies";
-import type { MovieDetails } from "@/types/media";
+import { useFavoriteMovies } from "@/hooks/useFavoriteMovies";
 import WatchlistItemSkeleton, { WatchlistSkeleton } from "@/components/movies/WatchlistItemSkeleton";
 
 export default function FavoritesPage() {
   const { user, loaded, favoriteIds, toggleFavorite } = useFavorites();
-  const [movies, setMovies] = useState<Record<number, MovieDetails>>({});
-  const [failed, setFailed] = useState<number[]>([]);
-
-  // Догружаем данные для фильмов из избранного, которых ещё нет
-  useEffect(() => {
-    const missing = favoriteIds.filter((id) => !movies[id] && !failed.includes(id));
-    if (missing.length === 0) return;
-
-    let cancelled = false;
-    Promise.allSettled(missing.map((id) => getMovieById(id))).then((results) => {
-      if (cancelled) return;
-      const loaded: Record<number, MovieDetails> = {};
-      const errors: number[] = [];
-      results.forEach((result, i) => {
-        if (result.status === "fulfilled") loaded[missing[i]] = result.value;
-        else errors.push(missing[i]);
-      });
-      setMovies((prev) => ({ ...prev, ...loaded }));
-      if (errors.length) setFailed((prev) => [...prev, ...errors]);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [favoriteIds, movies, failed]);
+  const { movies, failed } = useFavoriteMovies(favoriteIds);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 py-10">
