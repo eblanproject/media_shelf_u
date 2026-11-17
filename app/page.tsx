@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import TeaserMovie from "@/components/movies/TeaserMovie";
-import MovieGrid from "@/components/movies/MovieGrid";
+import TeaserMovieSkeleton from "@/components/movies/TeaserMovieSkeleton";
+import MovieGrid, { MovieGridSkeleton } from "@/components/movies/MovieGrid";
 import { getMovieById, getMovies } from "@/lib/api/movies";
 import { errorMessage } from "@/lib/api/client";
 import type { MediaListItem, MovieDetails } from "@/types/media";
@@ -9,9 +11,31 @@ import type { MediaListItem, MovieDetails } from "@/types/media";
 // Данные берутся с бэкенда при каждом запросе, а не при сборке
 export const dynamic = "force-dynamic";
 
+export default function Home() {
+  return (
+    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+        <Header/>
 
+        {/* Пока бэкенд отвечает — показываем скелетоны баннера и сетки */}
+        <Suspense
+            fallback={
+                <>
+                    <TeaserMovieSkeleton />
+                    <main className="flex w-full flex-1">
+                        <MovieGridSkeleton />
+                    </main>
+                </>
+            }
+        >
+            <HomeContent />
+        </Suspense>
 
-export default async function Home() {
+        <Footer />
+    </div>
+  );
+}
+
+async function HomeContent() {
     let movies: MediaListItem[] = [];
     let error: string | null = null;
 
@@ -32,36 +56,13 @@ export default async function Home() {
         }
     }
 
-    //
-    // const { genres, selectedGenre, setSelectedGenre } = useGenreFilter();
-    // const { query, setQuery, debouncedQuery } = useSearch();
-    //
-    // const featured = MOCK_MOVIES[0];
-    // const visibleMovies = filterMovies(MOCK_MOVIES, {
-    //     genre: selectedGenre,
-    //     query: debouncedQuery,
-    // });
+    return (
+        <>
+            <TeaserMovie movie={featured} />
 
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-
-
-        <Header/>
-
-        <TeaserMovie movie={featured} />
-
-        {/*<section className="p-7">*/}
-        {/*    {visibleMovies.map((movie) => (*/}
-        {/*        <p key={movie.id}>{movie.title}</p>*/}
-        {/*    ))}*/}
-        {/*</section>*/}
-
-        <main className="flex w-full flex-1">
-
-            <MovieGrid movies={movies} error={error} />
-
-      </main>
-        <Footer />
-    </div>
-  );
+            <main className="flex w-full flex-1">
+                <MovieGrid movies={movies} error={error} />
+            </main>
+        </>
+    );
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import LogoutButton from "@/components/auth/LogoutButton";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Skeleton from "@/components/ui/Skeleton";
 
 
 
@@ -76,7 +77,13 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
                         </Link>
                     </div>
                 </>
-            ) : null}
+            ) : (
+                // сессия ещё проверяется — заглушка вместо аватара и имени
+                <div className="flex h-5 shrink-0 items-center gap-2" role="status" aria-label="Loading account">
+                    <Skeleton className="h-6 w-6 rounded-full" />
+                    <Skeleton className="hidden h-4 w-20 sm:block" />
+                </div>
+            )}
         </div>
 
 

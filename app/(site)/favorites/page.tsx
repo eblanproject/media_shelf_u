@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useFavorites } from "@/hooks/useFavorites";
 import { getMovieById } from "@/lib/api/movies";
 import type { MovieDetails } from "@/types/media";
+import WatchlistItemSkeleton, { WatchlistSkeleton } from "@/components/movies/WatchlistItemSkeleton";
 
 export default function FavoritesPage() {
   const { user, loaded, favoriteIds, toggleFavorite } = useFavorites();
@@ -59,7 +60,7 @@ export default function FavoritesPage() {
           </div>
         </div>
       ) : !loaded ? (
-        <p className="mt-6 text-center text-gray-400">Loading…</p>
+        <WatchlistSkeleton />
       ) : favoriteIds.length === 0 ? (
         <p className="mt-6 text-center text-gray-400">
           Your watchlist is empty. Press <span className="text-yellow-200">Save</span> on any movie to add it here.
@@ -70,10 +71,12 @@ export default function FavoritesPage() {
             const movie = movies[id];
 
             if (!movie) {
-              return (
+              return failed.includes(id) ? (
                 <div key={id} className="flex h-30 items-center text-sm text-gray-500">
-                  {failed.includes(id) ? "Could not load this movie." : "Loading…"}
+                  Could not load this movie.
                 </div>
+              ) : (
+                <WatchlistItemSkeleton key={id} />
               );
             }
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { searchMedia } from "@/lib/api/movies";
 import type { SearchResult } from "@/types/media";
+import Skeleton from "@/components/ui/Skeleton";
 
 type SearchResultsProps = {
   /** Запрос после debounce */
@@ -43,7 +44,14 @@ export default function SearchResults({ query, onSelect, className = "" }: Searc
     <div
       className={`absolute top-full right-0 z-30 mt-2 max-h-96 w-full min-w-72 overflow-y-auto rounded-xl border border-gray-700 bg-black/95 p-2 text-sm shadow-2xl ${className}`}
     >
-      {!current && <p className="p-3 text-gray-400">Searching…</p>}
+      {!current &&
+        Array.from({ length: 4 }, (_, i) => (
+          <div key={i} className="flex items-center gap-3 p-2" aria-hidden="true">
+            <Skeleton className="aspect-[2/3] w-9 shrink-0 rounded" />
+            <Skeleton className="h-4 flex-1" />
+            <Skeleton className="h-3 w-10" />
+          </div>
+        ))}
       {current && !results && <p className="p-3 text-red-400">Search is unavailable right now.</p>}
       {results && results.length === 0 && (
         <p className="p-3 text-gray-400">Nothing found for “{query}”.</p>

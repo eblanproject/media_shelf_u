@@ -1,5 +1,6 @@
 import Link from "next/link";
-import MovieGrid from "@/components/movies/MovieGrid";
+import { Suspense } from "react";
+import MovieGrid, { MovieGridSkeleton } from "@/components/movies/MovieGrid";
 import { getMovies } from "@/lib/api/movies";
 import { errorMessage } from "@/lib/api/client";
 import type { MediaListItem, MovieCategory } from "@/types/media";
@@ -22,15 +23,6 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
   const { category: rawCategory } = await searchParams;
   const current = CATEGORIES.find((c) => c.value === rawCategory) ?? CATEGORIES[0];
 
-  let movies: MediaListItem[] = [];
-  let error: string | null = null;
-
-  try {
-    movies = await getMovies(current.value, 20);
-  } catch (e) {
-    error = errorMessage(e, "Could not load movies. Try again later.");
-  }
-
   return (
     <section className="mx-auto w-full max-w-7xl py-10">
       <nav className="flex flex-wrap justify-center gap-2 px-4 text-sm">
@@ -49,7 +41,23 @@ export default async function MoviesPage({ searchParams }: MoviesPageProps) {
         ))}
       </nav>
 
-      <MovieGrid title={`${current.label} movies`} movies={movies} error={error} />
+      {/* key — чтобы при смене категории снова показывался скелетон */}
+      <Suspense key={current.value} fallback={<MovieGridSkeleton title={`${current.label} movies`} />}>
+        <CategoryMovies category={current.value} title={`${current.label} movies`} />
+      </Suspense>
     </section>
   );
+}
+
+async function CategoryMovies({ category, title }: { category: MovieCategory; title: string }) {
+  let movies: MediaListItem[] = [];
+  let error: string | null = null;
+
+  try {
+    movies = await getMovies(category, 20);
+  } catch (e) {
+    error = errorMessage(e, "Could not load movies. Try again later.");
+  }
+
+  return <MovieGrid title={title} movies={movies} error={error} />;
 }
