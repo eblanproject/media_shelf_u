@@ -58,3 +58,18 @@ export async function getCurrentUser(): Promise<UserProfile | null> {
     return null;
   }
 }
+
+/** JWT из cookie текущего запроса (для route handlers) */
+export async function getToken(): Promise<string | null> {
+  return (await cookies()).get(TOKEN_COOKIE)?.value ?? null;
+}
+
+/** Запрос к защищённому эндпоинту бэкенда с токеном пользователя */
+export async function backendFetchWithToken(path: string, token: string, init?: RequestInit) {
+  if (!API_URL) throw new Error("NEXT_PUBLIC_API_URL is not set");
+  return fetch(`${API_URL}${path}`, {
+    ...init,
+    headers: { "Content-Type": "application/json", ...init?.headers, Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+}

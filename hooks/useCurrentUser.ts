@@ -1,21 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getMe } from "@/lib/api/auth";
-import type { UserProfile } from "@/types/user";
+import { useEffect, useSyncExternalStore } from "react";
+import { getSessionUser, refreshSession, subscribeSession } from "@/lib/auth/clientSession";
 
 /** undefined — ещё грузится, null — не вошёл */
 export function useCurrentUser() {
-  const [user, setUser] = useState<UserProfile | null | undefined>(undefined);
+  const user = useSyncExternalStore(subscribeSession, getSessionUser, () => undefined);
 
   useEffect(() => {
-    let cancelled = false;
-    getMe()
-      .then((me) => !cancelled && setUser(me))
-      .catch(() => !cancelled && setUser(null));
-    return () => {
-      cancelled = true;
-    };
+    if (getSessionUser() === undefined) void refreshSession();
   }, []);
 
   return user;

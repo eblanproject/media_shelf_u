@@ -1,3 +1,4 @@
+import { refreshSession, setSessionUser } from "@/lib/auth/clientSession";
 import type { UserProfile } from "@/types/user";
 
 // Вызовы из браузера. Идут на свои же /api/auth/* (route handlers Next.js),
@@ -27,16 +28,25 @@ async function authRequest<T>(path: string, init?: RequestInit): Promise<T> {
   return data as T;
 }
 
-export function login(payload: LoginPayload) {
-  return authRequest<UserProfile>("/login", { method: "POST", body: JSON.stringify(payload) });
+export async function login(payload: LoginPayload) {
+  const user = await authRequest<UserProfile>("/login", { method: "POST", body: JSON.stringify(payload) });
+  setSessionUser(user);
+  return user;
 }
 
-export function register(payload: RegisterPayload) {
-  return authRequest<UserProfile>("/register", { method: "POST", body: JSON.stringify(payload) });
+export async function register(payload: RegisterPayload) {
+  const user = await authRequest<UserProfile>("/register", { method: "POST", body: JSON.stringify(payload) });
+  // после регистрации сервер сразу входит в аккаунт — проверяем, что сессия действительно открылась
+  await refreshSession();
+  return user;
 }
 
-export function logout() {
-  return authRequest<{ ok: true }>("/logout", { method: "POST" });
+export async function logout() {
+  try {
+    return await authRequest<{ ok: true }>("/logout", { method: "POST" });
+  } finally {
+    setSessionUser(null);
+  }
 }
 
 /** null — пользователь не вошёл */

@@ -7,7 +7,7 @@ import { getMovieById } from "@/lib/api/movies";
 import type { MovieDetails } from "@/types/media";
 
 export default function FavoritesPage() {
-  const { favoriteIds, toggleFavorite } = useFavorites();
+  const { user, loaded, favoriteIds, toggleFavorite } = useFavorites();
   const [movies, setMovies] = useState<Record<number, MovieDetails>>({});
   const [failed, setFailed] = useState<number[]>([]);
 
@@ -38,7 +38,29 @@ export default function FavoritesPage() {
     <div className="mx-auto w-full max-w-7xl px-6 py-10">
       <h1 className="text-3xl font-bold text-center">Watchlist</h1>
 
-      {favoriteIds.length === 0 ? (
+      {user === null ? (
+        <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-4 rounded-lg border border-gray-700 bg-gray-900 p-6 text-center">
+          <p className="text-gray-300">
+            Sign in or create an account to save movies and see your watchlist.
+          </p>
+          <div className="flex gap-3">
+            <Link
+              href="/auth/signin"
+              className="rounded-md bg-yellow-300 px-4 py-2 text-sm font-semibold text-black transition hover:bg-yellow-200"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/auth/registration"
+              className="rounded-md border border-gray-600 px-4 py-2 text-sm font-semibold transition hover:bg-white/10"
+            >
+              Create account
+            </Link>
+          </div>
+        </div>
+      ) : !loaded ? (
+        <p className="mt-6 text-center text-gray-400">Loading…</p>
+      ) : favoriteIds.length === 0 ? (
         <p className="mt-6 text-center text-gray-400">
           Your watchlist is empty. Press <span className="text-yellow-200">Save</span> on any movie to add it here.
         </p>
