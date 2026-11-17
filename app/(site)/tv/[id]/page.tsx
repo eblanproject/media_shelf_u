@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTvById } from "@/lib/api/movies";
 import { errorMessage } from "@/lib/api/client";
+import CastList from "@/components/movies/CastList";
 
 type TvPageProps = {
   params: Promise<{ id: string }>;
@@ -59,21 +60,10 @@ export default async function TvPage({ params }: TvPageProps) {
 
           {tv.description && <p className="max-w-2xl text-gray-300">{tv.description}</p>}
 
-          {tv.cast.length > 0 && (
-            <div>
-              <h2 className="mb-2 text-lg font-bold">Cast</h2>
-              <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400">
-                {tv.cast.map((person) => (
-                  <li key={person.id}>
-                    {person.name}
-                    {person.character && <span className="text-gray-600"> — {person.character}</span>}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </article>
+
+      <CastList cast={tv.cast} />
     </section>
   );
 }

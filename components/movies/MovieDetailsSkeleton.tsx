@@ -37,16 +37,22 @@ export default function MovieDetailsSkeleton({ withSimilar = true }: MovieDetail
 
           <Skeleton className="h-12 w-28 rounded-xl" />
 
-          <div className="flex flex-col gap-2">
-            <Skeleton className="h-6 w-16" />
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
-              {Array.from({ length: 6 }, (_, i) => (
-                <Skeleton key={i} className="h-4 w-28" />
-              ))}
-            </div>
-          </div>
         </div>
       </article>
+
+      <section className="mt-12">
+        <Skeleton className="h-3 w-16" />
+        <Skeleton className="mt-2 mb-4 h-7 w-20" />
+        <div className="flex gap-4 overflow-hidden">
+          {Array.from({ length: 8 }, (_, i) => (
+            <div key={i} className="flex w-28 shrink-0 flex-col gap-2">
+              <Skeleton className="aspect-[2/3] w-full" />
+              <Skeleton className="h-4 w-4/5" />
+              <Skeleton className="h-3 w-3/5" />
+            </div>
+          ))}
+        </div>
+      </section>
 
       {withSimilar && (
         <section className="mt-12">

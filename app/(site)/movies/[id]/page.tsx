@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import MovieDetails from "@/components/movies/MovieDetails";
 import SimilarMovies from "@/components/movies/SimilarMovies";
+import CastList from "@/components/movies/CastList";
+import MovieComments from "@/components/movies/MovieComments";
 import { getMovieById, getSimilarMovies } from "@/lib/api/movies";
 
 type MoviePageProps = {
@@ -29,7 +31,9 @@ export default async function MoviePage({ params }: MoviePageProps) {
   return (
     <section className="mx-auto w-full max-w-7xl px-6 py-10">
       <MovieDetails movie={movieResult.value} />
+      <CastList cast={movieResult.value.cast} />
       <SimilarMovies movies={similarResult.status === "fulfilled" ? similarResult.value : []} />
+      <MovieComments tmdbId={movieResult.value.id} />
     </section>
   );
 }

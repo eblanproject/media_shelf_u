@@ -43,19 +43,6 @@ export default function MovieDetails({ movie }: MovieDetailsProps) {
           <FavoriteButton movieId={movie.id} className="text-sm" />
         </div>
 
-        {movie.cast.length > 0 && (
-          <div>
-            <h2 className="mb-2 text-lg font-bold">Cast</h2>
-            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-400">
-              {movie.cast.map((person) => (
-                <li key={person.id}>
-                  {person.name}
-                  {person.character && <span className="text-gray-600"> — {person.character}</span>}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </article>
   );
