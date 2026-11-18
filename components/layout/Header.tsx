@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import LogoutButton from "@/components/auth/LogoutButton";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import Skeleton from "@/components/ui/Skeleton";
+import ThemeToggle from "./ThemeToggle";
 
 
 
@@ -36,6 +37,8 @@ import Skeleton from "@/components/ui/Skeleton";
 {/* Favorite */}
 
     <div className="flex shrink-0 justify-stretch items-center gap-3 sm:gap-6">
+
+        <ThemeToggle />
 
         <div className="flex items-center text-sm text-yellow-200 border-r border-gray-700 px-5 hover:text-yellow-300 cursor-pointer">
 

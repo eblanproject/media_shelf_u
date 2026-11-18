@@ -35,6 +35,7 @@ export function resolveTheme(preference: ThemePreference): ResolvedTheme {
 /** Выставить data-theme на <html> по текущему выбору */
 export function applyTheme(preference = getThemePreference()) {
   document.documentElement.setAttribute("data-theme", resolveTheme(preference));
+  listeners.forEach((listener) => listener());
 }
 
 export function setThemePreference(preference: ThemePreference) {
@@ -44,17 +45,13 @@ export function setThemePreference(preference: ThemePreference) {
     // localStorage недоступен (приватный режим) — тема просто не запомнится
   }
   applyTheme(preference);
-  listeners.forEach((listener) => listener());
 }
 
 export function subscribeTheme(listener: () => void) {
   listeners.add(listener);
   // смена темы в другой вкладке
   const onStorage = (event: StorageEvent) => {
-    if (event.key === THEME_STORAGE_KEY) {
-      applyTheme();
-      listener();
-    }
+    if (event.key === THEME_STORAGE_KEY) applyTheme();
   };
   window.addEventListener("storage", onStorage);
   return () => {
