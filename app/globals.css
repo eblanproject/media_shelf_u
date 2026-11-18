@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --autofill-text: #ffffff;
+  --autofill-bg: #111827;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -12,11 +15,42 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * Светлая тема (data-theme="light" на <html>, см. lib/theme.ts).
+ * Сайт свёрстан под тёмный фон утилитами Tailwind (bg-black, text-white, gray-*, yellow-*),
+ * поэтому вместо переписывания каждого компонента меняем сами токены:
+ * чёрный ↔ белый, шкала серого переворачивается, жёлтый акцент темнеет, чтобы читаться на белом.
+ */
+:root[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #171717;
+  --autofill-text: #111827;
+  --autofill-bg: #f3f4f6;
+  color-scheme: light;
+
+  --color-black: #ffffff;
+  --color-white: #0a0a0a;
+
+  --color-gray-50: oklch(13% 0.028 261.692);
+  --color-gray-100: oklch(21% 0.034 264.665);
+  --color-gray-200: oklch(27.8% 0.033 256.848);
+  --color-gray-300: oklch(37.3% 0.034 259.733);
+  --color-gray-400: oklch(44.6% 0.03 256.802);
+  --color-gray-500: oklch(55.1% 0.027 264.364);
+  --color-gray-600: oklch(70.7% 0.022 261.325);
+  --color-gray-700: oklch(87.2% 0.01 258.338);
+  --color-gray-800: oklch(92.8% 0.006 264.531);
+  --color-gray-900: oklch(96.7% 0.003 264.542);
+  --color-gray-950: oklch(98.5% 0.002 247.839);
+
+  --color-yellow-200: oklch(60% 0.15 70);
+  --color-yellow-300: oklch(72% 0.17 80);
+  --color-yellow-400: oklch(78% 0.18 86);
+}
+
+/* На жёлтых кнопках и аватарах текст остаётся тёмным (text-black в светлой теме стал бы белым) */
+:root[data-theme="light"] :is(.bg-yellow-200, .bg-yellow-300, .bg-yellow-400) {
+  color: #0a0a0a;
 }
 
 body {
@@ -25,13 +59,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Keep login fields dark when the browser autofills saved credentials. */
+/* Поля ввода не перекрашиваются браузером при автозаполнении сохранённых данных. */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-text-fill-color: #ffffff;
-  -webkit-box-shadow: 0 0 0 1000px #111827 inset;
-  box-shadow: 0 0 0 1000px #111827 inset;
-  caret-color: #ffffff;
+  -webkit-text-fill-color: var(--autofill-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--autofill-bg) inset;
+  box-shadow: 0 0 0 1000px var(--autofill-bg) inset;
+  caret-color: var(--autofill-text);
 }

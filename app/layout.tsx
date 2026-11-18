@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Toaster from "@/components/ui/Toaster";
 import type { Viewport } from "next";
+import ThemeSync from "@/components/ThemeSync";
+import { THEME_SCRIPT } from "@/lib/theme";
 
 export const viewport: Viewport = {
     width: "device-width",
@@ -30,11 +32,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* выставляет сохранённую тему до первой отрисовки, чтобы не было вспышки */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         <Toaster />
+        <ThemeSync />
       </body>
     </html>
   );

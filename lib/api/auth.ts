@@ -16,6 +16,18 @@ export type RegisterPayload = {
   password: string;
 };
 
+/** Ошибка запроса к /api/auth/* — со статусом, чтобы отличать «эндпоинта ещё нет» (404/405) от остальных */
+export class AuthApiError extends Error {
+  constructor(message: string, public status: number) {
+    super(message);
+  }
+}
+
+/** Бэкенд ещё не умеет эту операцию (нет эндпоинта) */
+export function isNotSupported(error: unknown) {
+  return error instanceof AuthApiError && [404, 405, 501].includes(error.status);
+}
+
 async function authRequest<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api/auth${path}`, {
     ...init,
@@ -23,7 +35,7 @@ async function authRequest<T>(path: string, init?: RequestInit): Promise<T> {
   });
   const data = await response.json().catch(() => null);
   if (!response.ok) {
-    throw new Error((data as { message?: string } | null)?.message ?? "Something went wrong");
+    throw new AuthApiError((data as { message?: string } | null)?.message ?? "Something went wrong", response.status);
   }
   return data as T;
 }
@@ -47,6 +59,29 @@ export async function logout() {
   } finally {
     setSessionUser(null);
   }
+}
+
+export type UpdateProfilePayload = {
+  username?: string;
+  email?: string;
+};
+
+export async function updateProfile(payload: UpdateProfilePayload) {
+  const user = await authRequest<UserProfile>("/me", { method: "PATCH", body: JSON.stringify(payload) });
+  setSessionUser(user);
+  return user;
+}
+
+export async function changePassword(currentPassword: string, newPassword: string) {
+  return authRequest<{ ok: true }>("/password", {
+    method: "POST",
+    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+  });
+}
+
+export async function deleteAccount(password: string) {
+  await authRequest<{ ok: true }>("/me", { method: "DELETE", body: JSON.stringify({ password }) });
+  setSessionUser(null);
 }
 
 /** null — пользователь не вошёл */
