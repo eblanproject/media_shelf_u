@@ -2,7 +2,6 @@
 
 import MsuLogo from "../MsuLogo";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import LogoutButton from "@/components/auth/LogoutButton";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import Skeleton from "@/components/ui/Skeleton";
@@ -11,7 +10,6 @@ import ThemeToggle from "./ThemeToggle";
 
 
     export default function Header() {
-            const router = useRouter();
             const user = useCurrentUser();
             return (
 
@@ -21,14 +19,7 @@ import ThemeToggle from "./ThemeToggle";
 
     <div className="flex shrink-0 px-5 py-2 justify-items-center">
 
-      <div className="flex   text-black  rounded-full">
-            <div
-                onClick={() => router.push("/")}
-                className="cursor-pointer"
-            >
-                <MsuLogo />
-            </div>
-      </div>
+      <MsuLogo />
 
 
 

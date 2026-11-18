@@ -1,5 +1,6 @@
 import { apiFetch } from "@/lib/api/client";
 import type {
+  MediaGenre,
   MediaListItem,
   MovieCategory,
   MovieDetails,
@@ -10,8 +11,29 @@ import type {
 } from "@/types/media";
 
 // Фильмы
-export function getMovies(category: MovieCategory = "popular", count = 20) {
-  return apiFetch<MediaListItem[]>(`/api/movies?category=${category}&count=${count}`);
+export type MoviesQuery = {
+  category?: MovieCategory;
+  count?: number;
+  /** Номер страницы с 1. Контракт: docs/backend/catalog.md */
+  page?: number;
+  /** id жанра TMDB */
+  genre?: number | null;
+};
+
+export function moviesUrl({ category = "popular", count = 20, page = 1, genre }: MoviesQuery = {}) {
+  const params = new URLSearchParams({ category, count: String(count) });
+  if (page > 1) params.set("page", String(page));
+  if (genre) params.set("genre", String(genre));
+  return `/api/movies?${params}`;
+}
+
+export function getMovies(category: MovieCategory = "popular", count = 20, options: Omit<MoviesQuery, "category" | "count"> = {}) {
+  return apiFetch<MediaListItem[]>(moviesUrl({ category, count, ...options }));
+}
+
+/** Список жанров фильмов. Контракт: docs/backend/catalog.md */
+export function getMovieGenres() {
+  return apiFetch<MediaGenre[]>("/api/genres/movie");
 }
 
 export function getMovieById(id: string | number) {

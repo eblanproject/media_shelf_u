@@ -1,19 +1,11 @@
-"use client";
-
 import MsuLogo from "@/components/MsuLogo";
 import RegistrationForm from "@/components/auth/RegistrationForm";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
-    const router = useRouter();
-
     return (
         <section className="relative grid min-h-dvh w-full bg-black lg:grid-cols-2">
 
-            <div
-                onClick={() => router.push("/")}
-                className="absolute top-2 left-5 z-20 cursor-pointer font-bold"
-            >
+            <div className="absolute top-2 left-5 z-20 font-bold">
                 <MsuLogo />
             </div>
 

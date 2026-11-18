@@ -13,12 +13,13 @@ export default function FavoritesPage() {
     <div className="mx-auto w-full max-w-7xl px-6 py-10">
       <h1 className="text-3xl font-bold text-center">Watchlist</h1>
 
-      {user === null ? (
-        <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-4 rounded-lg border border-gray-700 bg-gray-900 p-6 text-center">
-          <p className="text-gray-300">
-            Sign in or create an account to save movies and see your watchlist.
+      {user === null && (
+        <div className="mx-auto mt-6 flex max-w-xl flex-col items-center gap-4 rounded-lg border border-gray-700 bg-gray-900 p-5 text-center sm:flex-row sm:text-left">
+          <p className="flex-1 text-sm text-gray-300">
+            Your watchlist is saved on this device only. Sign in or create an account to keep it everywhere —
+            movies saved here will move to your account.
           </p>
-          <div className="flex gap-3">
+          <div className="flex shrink-0 gap-3">
             <Link
               href="/auth/signin"
               className="rounded-md bg-yellow-300 px-4 py-2 text-sm font-semibold text-black transition hover:bg-yellow-200"
@@ -33,7 +34,9 @@ export default function FavoritesPage() {
             </Link>
           </div>
         </div>
-      ) : !loaded ? (
+      )}
+
+      {!loaded ? (
         <WatchlistSkeleton />
       ) : favoriteIds.length === 0 ? (
         <p className="mt-6 text-center text-gray-400">
